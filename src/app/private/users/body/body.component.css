@@ -1,0 +1,30 @@
+table,
+tr,
+td {
+  border: 1px solid black;
+}
+
+table,
+tr,
+th {
+  border: 1px solid black;
+}
+
+th,
+td {
+  padding: 10px;
+}
+
+.setting {
+  display: flex;
+
+}
+
+.table-b {
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.table-b table {
+  width: 100%;
+}

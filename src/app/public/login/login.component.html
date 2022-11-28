@@ -1,1 +1,25 @@
-<p style="font-size: 20px;">login works!</p>
+<div class="layout">
+    <mat-card style="max-width: 400px;min-height: 250px;">
+        <div>
+            <p style="margin-bottom: 50px;" class="title">Login</p>
+            <form class="example-form">
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Tài khoản</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="forms">
+                    <mat-label>Mật khẩu</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                  </mat-form-field>
+            </form>
+            <div class="footer">
+                <button (click)="login()" class="button" mat-raised-button color="primary">Đăng nhập</button>
+                <button class="button" mat-raised-button color="primary">Đăng kí</button>
+            </div>
+            
+        </div>
+    </mat-card>
+</div>
