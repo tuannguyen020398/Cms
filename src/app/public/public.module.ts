@@ -9,6 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card'
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,8 @@ import {MatCardModule} from '@angular/material/card'
   imports: [
     CommonModule,
     PublicRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     //NgbModule,
     MatButtonModule,
     MatInputModule,

@@ -15,22 +15,44 @@
                 <div>
                     <p style="margin-bottom: 50px;" class="title">Đăng kí</p>
                     <form class="example-form">
-                        <div style="display: flex;align-items: center;">
-                            <p class="styletitle">Họ tên</p>
-                            <input type="text" placeholder="Họ tên" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        <input style="display: none;" [(ngModel)]="object.id" name="id" type="number"/>
+                        <div class="form-body">
+                            <p class="styletitle">Họ tên*</p>
+                            <input [(ngModel)]="object.name" name="name" type="text" placeholder="Họ tên" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
                         </div>
-                        <div style="display: flex;align-items: center;">
-                            <p class="styletitle">Ngày sinh</p>
-                            <input type="text" placeholder="Ngày sinh" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        <div class="form-body">
+                            <p class="styletitle">Ngày sinh*</p>
+                            <input [(ngModel)]="object.dob" name="dob" type="date" placeholder="Ngày sinh" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
                         </div>
-                        <div style="display: flex;align-items: center;">
+                        <div class="form-body">                           
                             <p class="styletitle">Giới tính</p>
-                            <input type="text" placeholder="Giới tính" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <select name="gt" [(ngModel)]="object.gt" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;">
+                                <option [ngValue]="0">Nam</option>
+                                <option [ngValue]="1">Nữ</option>
+                                <option [ngValue]="2">Khác</option>
+                            </select>
+                            <!-- <input [(ngModel)]="object.gt" name="gt" type="number" placeholder="Giới tính" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/> -->
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Điện thoại*</p>
+                            <input [(ngModel)]="object.phoneNumber" name="phoneNumber" type="text" placeholder="Điện thoại" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Email*</p>
+                            <input [(ngModel)]="object.email" name="email" type="text" placeholder="Email" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Mật khẩu*</p>
+                            <input [(ngModel)]="object.passwordHash" name="passwordHash" type="text" placeholder="Mật khẩu" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Nhập lại mật khẩu*</p>
+                            <input [(ngModel)]="valuepass" name="valuepass" type="text" placeholder="Nhập lại mật khẩu" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
                         </div>
                     </form>
                     <div class="footer">
-                        <button class="button" mat-raised-button color="primary">Thêm mới</button>
-                        <button class="button" mat-raised-button color="primary">Về trang quản trị</button>
+                        <button (click)="createUser()" class="button" style="margin-right: 30px;" mat-raised-button color="primary">Thêm mới</button>
+                        <button (click)="goBack()"  class="button" mat-raised-button color="primary">Về trang quản trị</button>
                     </div>
                     
                 </div>

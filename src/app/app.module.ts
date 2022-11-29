@@ -21,7 +21,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     PrivateModule,
     //NgbModule,
     BrowserAnimationsModule,
-    //FormsModule
+    FormsModule,
     FlexLayoutModule,
     HttpClientModule,
     FormsModule,

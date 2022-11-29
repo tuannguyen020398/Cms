@@ -6,7 +6,7 @@ import { MainComponent } from './users/main/main.component';
 
 const routes: Routes = [{ path: '', component: MainComponent},
 { path: 'main/create', component: CreateUsersComponent},
-{ path: 'main/edit', component: EditUsersComponent}];
+{ path: 'main/edit/:id', component: EditUsersComponent}];
 
 
 

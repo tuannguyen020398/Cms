@@ -12,7 +12,7 @@ import { CreateUsersComponent } from './create-users/create-users.component';
 import { EditUsersComponent } from './edit-users/edit-users.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card'
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,6 +26,8 @@ import {MatCardModule} from '@angular/material/card'
   imports: [
     CommonModule,
     PrivateRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     //MatSelectModule
     MatButtonModule,
     MatIconModule,

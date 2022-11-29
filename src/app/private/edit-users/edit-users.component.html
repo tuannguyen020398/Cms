@@ -1,1 +1,54 @@
-<p>edit-users works!</p>
+<div style="width:100%;margin: 0px auto;">
+    <!-- header -->
+    <div style="display:flex;justify-content: space-between;background-color: white;border: 1px solid black;">
+        <div style="margin:10px">
+            <p class="title">Cập nhật thông tin nhân viên{{id}} </p>
+        </div>
+        <div style="margin:20px">
+            <button (click)="logout()" mat-raised-button color="primary">Đăng xuất</button>     
+        </div>
+    </div>
+    <!-- main -->
+    <div>
+        <div class="layout">
+            <mat-card class="example-card">
+                <div>
+                    <p style="margin-bottom: 50px;" class="title">Cập nhật thông tin</p>
+                    <form class="example-form">
+                        <div class="form-body">
+                            <p class="styletitle">Họ tên*</p>
+                            <input [(ngModel)]="userByid.name" name="name" type="text" placeholder="Họ tên" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Ngày sinh*</p>
+                            <input [(ngModel)]="userByid.dob" name="dob" type="date" placeholder="Ngày sinh" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Giới tính</p>
+                            <select name="gt" [(ngModel)]="userByid.gt" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;">
+                                <option [ngValue]="0">Nam</option>
+                                <option [ngValue]="1">Nữ</option>
+                                <option [ngValue]="2">Khác</option>
+                            </select>
+                            <!-- <input [(ngModel)]="userByid.gt" name="gt" type="number" placeholder="Giới tính" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/> -->
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Điện thoại*</p>
+                            <input [(ngModel)]="userByid.phoneNumber" name="phoneNumber" type="text" placeholder="Điện thoại" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>
+                        <div class="form-body">
+                            <p class="styletitle">Email*</p>
+                            <input [(ngModel)]="userByid.email" name="email" type="text" placeholder="Email" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                        </div>                     
+                    </form>
+                    <div class="footer">
+                        <button (click)="editUser()" class="button" style="margin-right: 30px;" mat-raised-button color="primary">Cập nhật</button>
+                        <button (click)="goBack()"  class="button" mat-raised-button color="primary">Về trang quản trị</button>
+                    </div>
+                    
+                </div>
+            </mat-card>
+        </div>       
+    </div>
+</div>
+

@@ -67,8 +67,8 @@
               <td>{{a.email}}</td>
               <td>
                 <div class="setting">
-                    <button style="margin-right: 25px;" mat-raised-button>Sửa</button>
-                    <button style="margin-right: 25px;" mat-raised-button>Xóa</button>
+                    <button (click)="EditId(a.id)"  style="margin-right: 25px;" mat-raised-button>Sửa</button>
+                    <button (click)="deleteUser(a.id)" style="margin-right: 25px;" mat-raised-button>Xóa</button>
                     <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">sửa</button>
                     <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">xóa</button> -->
                 </div>
