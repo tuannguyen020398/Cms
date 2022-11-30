@@ -1,4 +1,4 @@
-table,
+/* table,
 tr,
 td {
   border: 1px solid black;
@@ -8,6 +8,11 @@ table,
 tr,
 th {
   border: 1px solid black;
+} */
+table,
+tr,
+th {
+  text-align: center;
 }
 
 th,
@@ -22,9 +27,18 @@ td {
 
 .table-b {
   padding: 20px;
-  margin-top: 40px;
+
+  max-width: 95%;
+  margin: 40px auto;
 }
 
 .table-b table {
   width: 100%;
+}
+.example-card{
+  max-width: 50%;
+  margin-left: 30px;
+}
+.setting{
+  justify-content: center;
 }

@@ -16,3 +16,13 @@ export class CreateUserModel {
     userName: string='name';
     passwordHash!: string;
 }
+export class LoginModel{
+    email!:string;
+    password!:string;
+}
+export class Filter{
+    Keywork?:string='';
+    Count?:any='';
+    PageSize!:number;
+    PageIndex!:number;
+}

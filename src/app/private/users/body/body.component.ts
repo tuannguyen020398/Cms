@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { Filter } from 'src/app/model';
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
@@ -8,24 +9,39 @@ import { CommonService } from 'src/app/common.service';
 })
 export class BodyComponent implements OnInit {
 
-  public selectArray: Array<{ id: number, text: string }> = [
-    { id: 1, text: 'Nam' },
-    { id: 2, text: 'Nữ' },
-    { id: 3, text: 'Khác' },
-  ];
-
+  // public selectArray: Array<{ id: number, text: string,selected:boolean }> = [
+  //   { id: 0, text: 'Nam',selected:true },
+  //   { id: 1, text: 'Nữ',selected:false },
+  //   { id: 2, text: 'Khác',selected:false },
+  // ];
   constructor(private service: CommonService,private router:Router) { }
+  p: number = 1;
   dataRegister:any={}
-  listUser: any = [];
+  object:any={}
+  listUser: any = []; 
+  public obj=new Filter;
   ngOnInit(): void {
     this.getUsers();
+    console.log(localStorage.getItem('token'));
   }
+  // getUsers() {
+  //   this.service.getUser().subscribe(data => {
+  //     this.listUser = data;
+  //     console.log('data', this.listUser);
+  //   });
+  // };
   getUsers() {
-    this.service.getUser().subscribe(data => {
-      this.listUser = data;
+    // if(this.obj.Count==undefined)
+    // {
+    //   this.obj.Count=''
+    // }
+    this.service.getKeyWorkPading(this.obj).subscribe(data => {
+      console.log('datasearch',this.obj)
+      this.object = data;
+      this.listUser=this.object.result.itemsData
+      this.listUser.reverse();
       console.log('data', this.listUser);
     });
-
   };
   formatDate(date: string): string {
     const dates = new Date(date);
@@ -55,7 +71,6 @@ export class BodyComponent implements OnInit {
       }else{
         alert('xóa thất bại')
       }
-      
     })
   }
 }

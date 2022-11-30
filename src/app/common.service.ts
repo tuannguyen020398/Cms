@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ListById } from './model';
+import { Filter, ListById } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,12 @@ export class CommonService {
   }
   deleteUser(id:any){
     return this.http.delete(`${this.APIUrl}/User?id=${id}`);
+  }
+  authencateUser(obj:any){
+    return this.http.post(this.APIUrl+'/User/authenticate',obj);
+  }
+  getKeyWorkPading(obj:Filter){
+    return this.http.get(`${this.APIUrl}/User/keywork?Keywork=${obj.Keywork}&Count=${obj.Count}`).pipe();
   }
 }
 

@@ -1,13 +1,15 @@
 <div style="width:100%;margin: 0px auto;">
     <!-- header -->
-    <div style="display:flex;justify-content: space-between;background-color: white;border: 1px solid black;">
+    <mat-card class="example-card-header">
+    <div style="display:flex;justify-content: space-between">
         <div style="margin:10px">
-            <p class="title">Cập nhật thông tin nhân viên{{id}} </p>
+            <p class="title">Cập nhật thông tin nhân viên </p>
         </div>
         <div style="margin:20px">
             <button (click)="logout()" mat-raised-button color="primary">Đăng xuất</button>     
         </div>
     </div>
+</mat-card>
     <!-- main -->
     <div>
         <div class="layout">

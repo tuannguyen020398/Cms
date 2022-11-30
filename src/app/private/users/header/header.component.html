@@ -1,8 +1,11 @@
-<div style="display:flex;justify-content: space-between;background-color: white;border: 1px solid black;">
-    <div style="margin:10px">
-        <p class="title">Quản trị nhân viên</p>
+<mat-card class="example-card">
+    <div style="display:flex;justify-content: space-between;">
+        <div style="margin:10px">
+            <p class="title">Quản trị nhân viên</p>
+        </div>
+        <div style="margin:20px">
+            <button (click)="logout()" mat-raised-button color="primary">Đăng xuất</button>     
+        </div>
     </div>
-    <div style="margin:20px">
-        <button (click)="logout()" mat-raised-button color="primary">Đăng xuất</button>     
-    </div>
-</div>
+</mat-card>
+

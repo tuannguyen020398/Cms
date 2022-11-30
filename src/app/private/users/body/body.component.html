@@ -1,81 +1,93 @@
 <div style="margin-top: 20px;">
-    <div style="display:flex;width: 100%;">
-        <div style="display: flex;width: 50%;margin-left: 50px;">
-            <p style="font-size: 16px;font-weight:600;margin-right: 5px;">Ngày sinh từ</p>
-            <div style="margin-right:25px">
-                <input style="border-radius: 2px;border: 1px black solid;" type="date"/>
-            </div>
-                <p style="font-size: 16px;font-weight:600;margin-right: 5px;">Đến ngày</p>
-            <div>
-                <input style="border-radius:2px;border:1px black solid" type="date"/>
-            </div>
-        </div>
-        <div style="display:flex;width: 50%;">
-            <div style="font-size:16px;font-weight:600;margin-right:10px">Giới tính</div>
-            <div>
-                <select style="border-radius: 2px;border: 1px black solid;width: 80px;height: 30px;font-size: 14px;">
-                    <option value="">Tất cả</option>
-                    <option value="0">Nam</option>
-                    <option value="1">Nữ</option>
-                    <option value="2">Khác</option>
-                </select>
-                <!-- <mat-form-field appearance="fill">
-                    <mat-label>Favorite food</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let food of selectArray" [value]="food.id">
-                        {{food.text}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field> -->
-            </div>
-        </div>
-
-    </div>
-    <div style="display:flex;margin-top: 25px;width: 100%;">
-        <div style="display:flex;width: 50%;margin-left: 50px">
-            <p style="font-size: 16px;font-weight:600;margin-right:30px">Tìm kiếm</p>
-        <div>
-            <input type="text" placeholder="Tìm kiếm" style="border: 1px black solid;border-radius:2px;width:380px;height: 35px;"/>
-        </div>
-        </div>
-
-        <div style="width:50%;margin-left: 50px;">
-            <button style="margin-right: 25px" mat-raised-button>Tìm</button>
-            <button routerLink="create" mat-raised-button>Thêm mới</button>
-            <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">Tìm</button> -->
-            <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 15px;box-shadow: 3px 5px 1px 0px #222525;font-size:14px;background-color: white;">Thêm mới</button> -->
-        </div>
-    </div>
-    <div class="table-b">
-        <table>
-            <tr>
-              <th>ID</th>
-              <th>Họ tên</th>
-              <th>Ngày sinh</th>
-              <th>Giới Tính</th>
-              <th>Điện thoại</th>
-              <th>Email</th>
-              <th>Thiết lập</th>
-
-            </tr>
-            <tr *ngFor="let a of listUser;index as i">
-              <td>{{i+1}}</td>
-              <td>{{a.name}}</td>
-              <td>{{formatDate(a.dob)}}</td>
-              <td>{{format(a.gt)}}</td>
-              <td>{{a.phoneNumber}}</td>
-              <td>{{a.email}}</td>
-              <td>
-                <div class="setting">
-                    <button (click)="EditId(a.id)"  style="margin-right: 25px;" mat-raised-button>Sửa</button>
-                    <button (click)="deleteUser(a.id)" style="margin-right: 25px;" mat-raised-button>Xóa</button>
-                    <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">sửa</button>
-                    <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">xóa</button> -->
+    <mat-card class="example-card">
+        <div style="display:flex;width: 100%;">
+            <div style="display: flex;width: 70%;margin-left: 50px;">
+                <p style="font-size: 15px;font-weight:500;margin-right: 5px;">Ngày sinh từ</p>
+                <div style="margin-right:25px">
+                    <input style="border-radius: 2px;border: 1px #ced4da solid;" type="date" />
                 </div>
-            </td>
+                <p style="font-size: 15px;font-weight:500;margin-right: 5px;">Đến ngày</p>
+                <div>
+                    <input style="border-radius:2px;border:1px #ced4da solid" type="date" />
+                </div>
+            </div>
+            <div style="display:flex;width: 30%;align-items: center;">
+                <div style="font-size:15px;font-weight:500;margin-right:10px">Giới tính</div>
+                <div class="form-control">
+                    <select id="Count" name="Count" [(ngModel)]="obj.Count"
+                        style="border-radius: 5px;border: 1px #ced4da solid;width: 80px;height: 30px;font-size: 14px;">
+                        <option value="" >Tất cả</option>                        
+                        <option [ngValue]="0">Nam</option>
+                        <option [ngValue]="1">Nữ</option>
+                        <option [ngValue]="2">Khác</option>
+                        <!-- <option *ngFor="let a of selectArray" [ngValue]="a.id">{{a.text}}</option> -->
+                    </select>
+                    <!-- <mat-form-field appearance="fill">
+                        <mat-label>Favorite food</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let food of selectArray" [ngValue]="food.id">
+                            {{food.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field> -->
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;margin-top: 25px;width: 100%;">
+            <div style="display:flex;width: 70%;margin-left: 50px;align-items: center;">
+                <p style="font-size: 15px;font-weight:500;margin-right:30px">Tìm kiếm</p>
+                <div>
+                    <input [(ngModel)]="obj.Keywork" name="Keywork" type="text" placeholder="Tìm kiếm"
+                        style="border: 1px #ced4da solid;border-radius:5px;width:380px;height: 35px;" />
+                </div>
+            </div>
+    
+            <div style="width:30%;margin-left: 50px;">
+                <button (click)="getUsers()" style="margin-right: 25px" mat-raised-button>Tìm</button>
+                <button routerLink="create" mat-raised-button>Thêm mới</button>
+                <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">Tìm</button> -->
+                <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 15px;box-shadow: 3px 5px 1px 0px #222525;font-size:14px;background-color: white;">Thêm mới</button> -->
+            </div>
+        </div>
+    </mat-card>
+    
+    <mat-card class="table-b">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Họ tên</th>
+                <th>Ngày sinh</th>
+                <th>Giới Tính</th>
+                <th>Điện thoại</th>
+                <th>Email</th>
+                <th>Thiết lập</th>
 
             </tr>
-          </table>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let a of listUser | paginate: { itemsPerPage: 7, currentPage: p,totalItems:listUser.length };index as i">
+                <td>{{a.id}}</td>
+                <td>{{a.name}}</td>
+                <td>{{formatDate(a.dob)}}</td>
+                <td>{{format(a.gt)}}</td>
+                <td>{{a.phoneNumber}}</td>
+                <td>{{a.email}}</td>
+                <td>
+                    <div class="setting">
+                        <button (click)="EditId(a.id)" style="margin-right: 25px;" mat-raised-button>Sửa</button>
+                        <button (click)="deleteUser(a.id)" style="margin-right: 25px;" mat-raised-button>Xóa</button>
+                        <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">sửa</button>
+                    <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">xóa</button> -->
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </mat-card>
+    <div>
+        <pagination-controls nextLabel previousLabel screenReaderPageLabel="page" (pageChange)="p = $event">
+        </pagination-controls>
     </div>
-    <div></div>
 </div>

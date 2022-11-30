@@ -13,6 +13,9 @@ import { EditUsersComponent } from './edit-users/edit-users.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card'
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatTableModule} from '@angular/material/table'
+import {NgxPaginationModule} from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    NgxPaginationModule,
+    NgbModule
   ]
 })
 export class PrivateModule { }
