@@ -16,46 +16,87 @@
             <mat-card class="example-card">
                 <div>
                     <p style="margin-bottom: 50px;" class="title">Đăng kí</p>
-                    <form class="example-form">
-                        <input style="display: none;" [(ngModel)]="object.id" name="id" type="number"/>
-                        <div class="form-body">
+                    <form #createForm="ngForm" (ngSubmit)="createForm.form.valid && createUser()" class="example-form">
+                        <!-- <input [(ngModel)]="object.id" style="display: none;"  type="number"/> -->
+                        <div class="form-group form-body">
                             <p class="styletitle">Họ tên*</p>
-                            <input [(ngModel)]="object.name" name="name" type="text" placeholder="Họ tên" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <input [(ngModel)]="object.name" name="name" #name="ngModel" type="text" placeholder="Họ tên" class="form-control" required minlength="6"/>                           
                         </div>
-                        <div class="form-body">
+                        <div class="text-danger textvalidate" *ngIf="(name.touched||createForm.submitted) && name.errors?.required">
+                            <p>bạn chưa nhập tên</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(name.touched||createForm.submitted) && name.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <div class="form-group form-body">
                             <p class="styletitle">Ngày sinh*</p>
-                            <input [(ngModel)]="object.dob" name="dob" type="date" placeholder="Ngày sinh" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <input [(ngModel)]="object.dob" name="dob" #dob="ngModel" type="date" placeholder="Ngày sinh" class="form-control" required/>
                         </div>
-                        <div class="form-body">                           
+                        <div class="text-danger textvalidate" *ngIf="(dob.touched||createForm.submitted) && dob.errors?.required">
+                            <p>bạn chưa nhập ngày sinh</p>
+                        </div>
+                        <div class="form-group form-body">                           
                             <p class="styletitle">Giới tính</p>
-                            <select name="gt" [(ngModel)]="object.gt" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;">
+                            <select  class="form-control" [(ngModel)]="object.gt" name="gt" #gt="ngModel" required >
                                 <option [ngValue]="0">Nam</option>
                                 <option [ngValue]="1">Nữ</option>
                                 <option [ngValue]="2">Khác</option>
                             </select>
                             <!-- <input [(ngModel)]="object.gt" name="gt" type="number" placeholder="Giới tính" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/> -->
                         </div>
-                        <div class="form-body">
+                        <div class="text-danger textvalidate" *ngIf="(gt.touched||createForm.submitted) && gt.errors?.required">
+                            <p>bạn chưa chọn giới tính </p>
+                        </div>
+                        <div class="form-group form-body">
                             <p class="styletitle">Điện thoại*</p>
-                            <input [(ngModel)]="object.phoneNumber" name="phoneNumber" type="text" placeholder="Điện thoại" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <input [(ngModel)]="object.phoneNumber" name="phoneNumber" #phoneNumber="ngModel" type="text" placeholder="Điện thoại" class="form-control" required pattern="(0[3|5|7|8|9])+([0-9]{8})\b"/>
                         </div>
-                        <div class="form-body">
+                        <div class="text-danger textvalidate" *ngIf="(phoneNumber.touched||createForm.submitted) && phoneNumber.errors?.required">
+                            <p>bạn chưa nhập số điện thoại</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(phoneNumber.touched||createForm.submitted) && phoneNumber.errors?.pattern">
+                            <p>bạn nhập số điện thoại chưa đúng</p>
+                        </div>
+                        <div class="form-group form-body">
                             <p class="styletitle">Email*</p>
-                            <input [(ngModel)]="object.email" name="email" type="text" placeholder="Email" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <input [(ngModel)]="object.email" name="email" #email="ngModel" type="text" placeholder="Email" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required/>
                         </div>
-                        <div class="form-body">
+                        <div class="text-danger textvalidate" *ngIf="(email.touched||createForm.submitted) && email.errors?.required">
+                            <p>bạn chưa nhập email</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(email.touched||createForm.submitted) && email.errors?.pattern">
+                            <p>bạn nhập email chưa đúng</p>
+                        </div>
+                        <div class="form-group form-body">
                             <p class="styletitle">Mật khẩu*</p>
-                            <input [(ngModel)]="object.passwordHash" name="passwordHash" type="text" placeholder="Mật khẩu" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <input [(ngModel)]="object.passwordHash" name="passwordHash" #passwordHash="ngModel" type="password" placeholder="Mật khẩu" class="form-control" required minlength="6"/>
                         </div>
-                        <div class="form-body">
+                        <div class="text-danger textvalidate" *ngIf="(passwordHash.touched||createForm.submitted) && passwordHash.errors?.required">
+                            <p>bạn chưa nhập mật khẩu</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(passwordHash.touched||createForm.submitted) && passwordHash.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <div class="form-group form-body">
                             <p class="styletitle">Nhập lại mật khẩu*</p>
-                            <input [(ngModel)]="valuepass" name="valuepass" type="text" placeholder="Nhập lại mật khẩu" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/>
+                            <input [(ngModel)]="object.passwordagain" name="passwordagain" #passwordagain="ngModel" type="password" placeholder="Nhập lại mật khẩu" class="form-control" required minlength="6"/>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(passwordagain.touched||createForm.submitted) && passwordagain.errors?.required">
+                            <p>bạn chưa nhập lại mật khẩu</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(passwordagain.touched||createForm.submitted) && object.passwordagain!==object.passwordHash">
+                            <p>mật khẩu không giống nhau</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="(passwordagain.touched||createForm.submitted) && passwordagain.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <div class="footer">
+                            <button class="button" style="margin-right: 30px;" mat-raised-button color="primary">Thêm mới</button>
+                            <!-- <button (click)="createUser()" class="button" style="margin-right: 30px;" mat-raised-button color="primary">Thêm mới</button> -->
+                            <button (click)="goBack()"  class="button" mat-raised-button color="primary">Về trang quản trị</button>
                         </div>
                     </form>
-                    <div class="footer">
-                        <button (click)="createUser()" class="button" style="margin-right: 30px;" mat-raised-button color="primary">Thêm mới</button>
-                        <button (click)="goBack()"  class="button" mat-raised-button color="primary">Về trang quản trị</button>
-                    </div>
+                    
                     
                 </div>
             </mat-card>

@@ -15,6 +15,7 @@ export class CreateUserModel {
     gt!: number;
     userName: string='name';
     passwordHash!: string;
+    passwordagain!: string;
 }
 export class LoginModel{
     email!:string;
@@ -25,4 +26,5 @@ export class Filter{
     Count?:any='';
     PageSize!:number;
     PageIndex!:number;
+    Dob?:any='';
 }

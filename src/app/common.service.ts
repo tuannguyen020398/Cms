@@ -15,14 +15,14 @@ export class CommonService {
   //   email:"",
   //   gt:0
   // };
-  readonly APIUrl = 'http://localhost:5005/api';
+  readonly APIUrl = 'http://10.1.11.115:5001/api';
 
   constructor(private http: HttpClient) { }
   getUser(): Observable<any[]> {
     return this.http.get<any>(this.APIUrl + '/User');
   };
   getById(id: number): Observable<ListById> {
-    return this.http.get<ListById>(`${this.APIUrl}/User/id?id=${id}`).pipe()
+    return this.http.get<ListById>(`${this.APIUrl}/User/id?id=${id}`).pipe();
   }
   postUser(obj:any){
     return this.http.post(this.APIUrl+'/User',obj);
@@ -37,7 +37,7 @@ export class CommonService {
     return this.http.post(this.APIUrl+'/User/authenticate',obj);
   }
   getKeyWorkPading(obj:Filter){
-    return this.http.get(`${this.APIUrl}/User/keywork?Keywork=${obj.Keywork}&Count=${obj.Count}`).pipe();
+    return this.http.get(`${this.APIUrl}/User/keywork?Keywork=${obj.Keywork}&Count=${obj.Count}&Dob=${obj.Dob}`).pipe();
   }
 }
 

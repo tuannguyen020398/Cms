@@ -20,6 +20,7 @@ export class BodyComponent implements OnInit {
   object:any={}
   listUser: any = []; 
   public obj=new Filter;
+  check!:boolean;
   ngOnInit(): void {
     this.getUsers();
     console.log(localStorage.getItem('token'));
@@ -35,18 +36,29 @@ export class BodyComponent implements OnInit {
     // {
     //   this.obj.Count=''
     // }
-    this.service.getKeyWorkPading(this.obj).subscribe(data => {
-      console.log('datasearch',this.obj)
+    console.log('datasearch',this.obj)
+    this.service.getKeyWorkPading(this.obj).subscribe(data => {     
       this.object = data;
       this.listUser=this.object.result.itemsData
       this.listUser.reverse();
       console.log('data', this.listUser);
+      this.checklength();
     });
   };
   formatDate(date: string): string {
     const dates = new Date(date);
     return dates.getDate() + '/' + (dates.getMonth() + 1) + '/' + dates.getFullYear();
   };
+ public checklength=():boolean=>{
+  console.log(this.check)
+    if(this.listUser.length==0)
+    {
+      return this.check=false
+    }else{
+      return this.check=true
+    }
+    //return this.check
+  }
   format(number: Number): any {
     switch (number) {
       case 0:
@@ -63,14 +75,16 @@ export class BodyComponent implements OnInit {
   }
   deleteUser(id:number){
     console.log('remove',id)
-    this.service.deleteUser(id).subscribe(res=>{
-      this.dataRegister=res
-      if(this.dataRegister!=0){
-        alert('xóa thành công')
-        this.getUsers();
-      }else{
-        alert('xóa thất bại')
-      }
-    })
+    if(confirm("bạn có chắc muốn xóa")){
+      this.service.deleteUser(id).subscribe(res=>{
+        this.dataRegister=res
+        if(this.dataRegister!=0){
+          alert('xóa thành công')
+          this.getUsers();
+        }else{
+          alert('xóa thất bại')
+        }
+      })
+    }   
   }
 }

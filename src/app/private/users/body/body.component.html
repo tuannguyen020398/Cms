@@ -1,21 +1,21 @@
 <div style="margin-top: 20px;">
     <mat-card class="example-card">
         <div style="display:flex;width: 100%;">
-            <div style="display: flex;width: 70%;margin-left: 50px;">
+            <div style="display: flex;width: 70%;margin-left: 50px;align-items: center;">
                 <p style="font-size: 15px;font-weight:500;margin-right: 5px;">Ngày sinh từ</p>
                 <div style="margin-right:25px">
-                    <input style="border-radius: 2px;border: 1px #ced4da solid;" type="date" />
+                    <input [(ngModel)]="obj.Dob" name="Dob" class="form-control" type="date" />
                 </div>
                 <p style="font-size: 15px;font-weight:500;margin-right: 5px;">Đến ngày</p>
                 <div>
-                    <input style="border-radius:2px;border:1px #ced4da solid" type="date" />
+                    <input class="form-control" type="date" />
                 </div>
             </div>
             <div style="display:flex;width: 30%;align-items: center;">
                 <div style="font-size:15px;font-weight:500;margin-right:10px">Giới tính</div>
-                <div class="form-control">
+                <div>
                     <select id="Count" name="Count" [(ngModel)]="obj.Count"
-                        style="border-radius: 5px;border: 1px #ced4da solid;width: 80px;height: 30px;font-size: 14px;">
+                    class="form-control">
                         <option value="" >Tất cả</option>                        
                         <option [ngValue]="0">Nam</option>
                         <option [ngValue]="1">Nữ</option>
@@ -35,10 +35,10 @@
         </div>
         <div style="display:flex;margin-top: 25px;width: 100%;">
             <div style="display:flex;width: 70%;margin-left: 50px;align-items: center;">
-                <p style="font-size: 15px;font-weight:500;margin-right:30px">Tìm kiếm</p>
+                <p style="font-size: 15px;font-weight:500;margin-right:26px">Tìm kiếm</p>
                 <div>
                     <input [(ngModel)]="obj.Keywork" name="Keywork" type="text" placeholder="Tìm kiếm"
-                        style="border: 1px #ced4da solid;border-radius:5px;width:380px;height: 35px;" />
+                    class="form-control" style="width:425px" />
                 </div>
             </div>
     
@@ -49,6 +49,7 @@
                 <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 15px;box-shadow: 3px 5px 1px 0px #222525;font-size:14px;background-color: white;">Thêm mới</button> -->
             </div>
         </div>
+        <div style="margin-left: 145px;margin-top: 20px; color: red;" *ngIf="check==false"><p>không tìm thấy kết quả</p></div>
     </mat-card>
     
     <mat-card class="table-b">
@@ -67,7 +68,7 @@
         </thead>
         <tbody>
             <tr
-                *ngFor="let a of listUser | paginate: { itemsPerPage: 7, currentPage: p,totalItems:listUser.length };index as i">
+                *ngFor="let a of listUser | paginate: { itemsPerPage: 5, currentPage: p,totalItems:listUser.length };index as i">
                 <td>{{a.id}}</td>
                 <td>{{a.name}}</td>
                 <td>{{formatDate(a.dob)}}</td>
@@ -85,6 +86,7 @@
             </tr>
         </tbody>
         </table>
+        <div style="margin-top: 150px; color: red;" *ngIf="check==false"><p style="text-align: center;">không tìm thấy kết quả</p></div>
     </mat-card>
     <div>
         <pagination-controls nextLabel previousLabel screenReaderPageLabel="page" (pageChange)="p = $event">

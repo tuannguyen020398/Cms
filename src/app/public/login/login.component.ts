@@ -15,11 +15,15 @@ export class LoginComponent implements OnInit {
   constructor(private route:Router,private activateroute: ActivatedRoute,private service: CommonService) { }
   public hide=true
   ngOnInit(): void {
+    if(localStorage.getItem('token')!==null){
+      this.route.navigate(['main'])
+    }
      this.hide;
+     console.log(localStorage.getItem('token'))
   }
-  login(){
-    console.log('obj',this.loginmodel)
-    this.service.authencateUser(this.loginmodel).subscribe(res=>{
+  login(obj:any){
+    console.log('obj',obj)
+    this.service.authencateUser(obj).subscribe(res=>{
       this.dataLogin=res
       console.log('token',this.dataLogin.resultObj)
       if(this.dataLogin.isSuccessed==true){
@@ -29,8 +33,7 @@ export class LoginComponent implements OnInit {
       }else{
         console.log('fail',this.dataLogin.message)
         alert(this.dataLogin.message)
-      }
-      
+      }     
     })
   }
 }

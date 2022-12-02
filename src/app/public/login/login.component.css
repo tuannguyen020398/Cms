@@ -25,6 +25,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    width: 100%;
 }
 .button{
 width: 150px;
@@ -37,4 +38,7 @@ width: 150px;
     max-height: 500px;
     min-height: 350px;
     padding: 10px;
+}
+.textvalidate{
+    margin-left: 115px;
 }

@@ -10,11 +10,13 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PageNotFoundComponentComponent } from './PageNotFound/page-not-found-component/page-not-found-component.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponentComponent,
   ],
   imports: [
     BrowserModule,
