@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PageNotFoundComponentComponent } from './PageNotFound/page-not-found-component/page-not-found-component.component';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { PageNotFoundComponentComponent } from './PageNotFound/page-not-found-co
     BrowserModule,
     AppRoutingModule,
     PrivateModule,
+    MatButtonModule,
     //NgbModule,
     BrowserAnimationsModule,
     FormsModule,

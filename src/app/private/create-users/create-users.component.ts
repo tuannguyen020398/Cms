@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { CreateUserModel } from 'src/app/model';
 import { CommonService } from 'src/app/common.service';
-import { FormBuilder,FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -12,69 +12,83 @@ import { FormBuilder,FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./create-users.component.css']
 })
 export class CreateUsersComponent implements OnInit {
-  public object=new CreateUserModel;
-  dataRegister:any={};
-  ValidateForm!:FormGroup;
-  standalone!:boolean;
-  errorsMessageDob!:string;
-  // public object: { id: number; name: string; dob: string;phoneNumber:string;email:string;gt:number,passwordHash:string } = {
-  //   id: 0,
-  //   name: "",
-  //   dob:"",
-  //   phoneNumber: "",
-  //   email:"",
-  //   gt:0,
-  //   passwordHash:"",
-  // };
-  public valuepass!:string;
-  constructor(private route:Router,private _location: Location,private service: CommonService,private formbuilder:FormBuilder) { }
+  public object = new CreateUserModel;
+  dataRegister: any = {};
+  ValidateForm!: FormGroup;
+  standalone!: boolean;
+  errorsMessageDob!: string;
+  check!: boolean;
+  errorsMessageRequest!: any;
+  successMessageRequest!:any;
+  checkerror: boolean = true;
+  ages!:number
+ valuepass!: string;
+  constructor(private route: Router, private _location: Location, private service: CommonService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem('token')==null){
-      this.route.navigate(['login'])
-    }
-    //this.validateForm();
+    //check token login
+    
   }
-  
-  // validateForm(){
-  //   this.ValidateForm=this.formbuilder.group({
-  //     id:[this.object.id],
-  //     name:[this.object.name,[Validators.required,Validators.minLength(6)]],
-  //     dob:[this.object.dob,Validators.required],
-  //     gt:[this.object.gt,Validators.required],
-  //     phoneNumber:[this.object.phoneNumber,Validators.required],
-  //     email:[this.object.email,[Validators.required,Validators.email]],
-  //     passwordHash:[this.object.passwordHash,[Validators.required,Validators.minLength(6)]],
-  //     userName:[this.object.userName],
-  //     Passwordagain:['',Validators.required]
-  //   })
-  // }
-  logout(){
-    if(localStorage.getItem('token')!=null)
-    {
+  //kiểm tra validate ngày sinh
+  public functionDob=():any=>{
+    var today = new Date();
+    var birthDate = new Date(this.object.dob);
+    this.ages= today.getFullYear() - birthDate.getFullYear();
+    return this.ages
+  }
+  //đăng xuất
+  logout() {
+    if (localStorage.getItem('token') != null) {
       localStorage.removeItem('token')
       this.route.navigate(['login'])
-    } 
+    }
   }
-  goBack(){
+  //quay lại trang trước
+  goBack() {
     this._location.back();
   }
-  createUser(){
-    console.log('obj',this.object)
-      this.service.postUser(this.object).subscribe(res=>{
-        this.dataRegister=res;
-        if(this.dataRegister.isSuccessed){
-          alert('thêm mới thành công')
-          this.route.navigate(['main'])
-        }else{
-          alert('thêm mới thất bại')
-        }       
-      },(err)=>{
-        this.errorsMessageDob=err.error.errors.Dob.toString();
-        alert(this.errorsMessageDob)
-        console.log(this.errorsMessageDob)
-      })
-
+  //chuyển số điện thoại về đúng định dạng
+  formatPhone(str: any) {
+    let text = str.slice(0, 2);
+    if (text === "84") {
+      this.object.phoneNumber = "0" + str.slice(2)
+      console.log('format', this.object.phoneNumber = "0" + str.slice(2))
+    }
+  }
+  //gửi post thông tin người dùng
+  createUser() {
+    if ((this.ages<18&&this.ages>0)||(this.ages<0)||(this.ages>100)) {
+      return
+    }
+    if (this.object.email === '') {
+      this.object.email = null
+    }
+    this.service.postUser(this.object).subscribe(res => {
+      this.dataRegister = res;
+      if (this.dataRegister.isSuccessed) {
+        this.successMessageRequest = 'Thêm mới thành công'
+        setTimeout(() => {
+          this.successMessageRequest = null;
+          console.log('Thêm mới thành công');
+          this.route.navigate(['main']);
+        }, 800)
+      } else {
+        this.errorsMessageRequest = this.dataRegister.message
+        setTimeout(() => {       
+          this.errorsMessageRequest =null
+        }, 1500) 
+        console.log('fail', this.errorsMessageRequest)
+        //alert('thêm mới thất bại : ' + this.errorsMessageRequest)
+      }
+    }, (err) => {
+      this.checkerror = false
+      this.errorsMessageDob = err.error.errors.Dob.toString();
+      //alert(this.errorsMessageDob)
+      setTimeout(() => {
+        this.checkerror = true
+      }, 1500)
+      console.log(this.errorsMessageDob)
+    })
   }
 
 }

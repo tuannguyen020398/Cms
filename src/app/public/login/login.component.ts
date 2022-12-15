@@ -13,11 +13,15 @@ export class LoginComponent implements OnInit {
   public loginmodel=new LoginModel;
   dataLogin:any={}
   constructor(private route:Router,private activateroute: ActivatedRoute,private service: CommonService) { }
-  public hide=true
+  public hide=true;
+  public textMessenger!:string;
+  public checkLogin!:boolean;
+  public loader:boolean = true;
   ngOnInit(): void {
-    if(localStorage.getItem('token')!==null){
-      this.route.navigate(['main'])
-    }
+    //check token login
+    // if(localStorage.getItem('token')!==null){
+    //   this.route.navigate(['main'])
+    // }
      this.hide;
      console.log(localStorage.getItem('token'))
   }
@@ -25,15 +29,20 @@ export class LoginComponent implements OnInit {
     console.log('obj',obj)
     this.service.authencateUser(obj).subscribe(res=>{
       this.dataLogin=res
+      this.loader = false;
       console.log('token',this.dataLogin.resultObj)
       if(this.dataLogin.isSuccessed==true){
-        alert('đăng nhập thành công')
+        //alert('đăng nhập thành công')
         localStorage.setItem('token',this.dataLogin.resultObj)
-        this.route.navigate(['main'])
+        setTimeout(() => {
+          this.route.navigate(['main']) 
+        }, 1000)            
       }else{
-        console.log('fail',this.dataLogin.message)
-        alert(this.dataLogin.message)
+        this.loader = true;
+        this.checkLogin=true
+        this.textMessenger=this.dataLogin.message
       }     
     })
   }
+
 }

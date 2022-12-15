@@ -2,21 +2,22 @@
     <mat-card class="example-card">
         <div style="display:flex;width: 100%;">
             <div style="display: flex;width: 70%;margin-left: 50px;align-items: center;">
-                <p style="font-size: 15px;font-weight:500;margin-right: 5px;">Ngày sinh từ</p>
+                <p style="font-size: 15px;font-weight:500;margin-right: 35px;">Từ ngày</p>
                 <div style="margin-right:25px">
-                    <input [(ngModel)]="obj.Dob" name="Dob" class="form-control" type="date" />
+                    <input (change)="functionAge()" [(ngModel)]="obj.StartDob" name="StartDob" class="form-control"
+                        type="date" />
                 </div>
                 <p style="font-size: 15px;font-weight:500;margin-right: 5px;">Đến ngày</p>
                 <div>
-                    <input class="form-control" type="date" />
+                    <input (change)="functionAgeEnd()" [(ngModel)]="obj.EndDob" name="EndDob" class="form-control"
+                        type="date" />
                 </div>
             </div>
             <div style="display:flex;width: 30%;align-items: center;">
                 <div style="font-size:15px;font-weight:500;margin-right:10px">Giới tính</div>
                 <div>
-                    <select id="Count" name="Count" [(ngModel)]="obj.Count"
-                    class="form-control">
-                        <option value="" >Tất cả</option>                        
+                    <select id="Count" name="Count" [(ngModel)]="obj.Count" class="form-control">
+                        <option [ngValue]=null>Tất cả</option>
                         <option [ngValue]="0">Nam</option>
                         <option [ngValue]="1">Nữ</option>
                         <option [ngValue]="2">Khác</option>
@@ -33,63 +34,102 @@
                 </div>
             </div>
         </div>
-        <div style="display:flex;margin-top: 25px;width: 100%;">
+        <div style="display:flex;margin-top: 40px;width: 100%;align-items: flex-start;">
             <div style="display:flex;width: 70%;margin-left: 50px;align-items: center;">
                 <p style="font-size: 15px;font-weight:500;margin-right:26px">Tìm kiếm</p>
                 <div>
-                    <input [(ngModel)]="obj.Keywork" name="Keywork" type="text" placeholder="Tìm kiếm"
-                    class="form-control" style="width:425px" />
+                    <input [(ngModel)]="textKeyWork" (keydown.enter)="getUsers()" name="Keywork" type="search"
+                        placeholder="Tìm kiếm" class="form-control" style="width:425px" />
                 </div>
             </div>
-    
-            <div style="width:30%;margin-left: 50px;">
-                <button (click)="getUsers()" style="margin-right: 25px" mat-raised-button>Tìm</button>
-                <button routerLink="create" mat-raised-button>Thêm mới</button>
+            <div style="width:30%;margin-left: 50px">
+                <button (click)="getUsers()" style="margin-right: 25px;margin-bottom: 10px;" mat-raised-button
+                    color="primary">Tìm kiếm
+                    <mat-icon style="display: inline;font-size: 18px;">search</mat-icon></button>
+                <button (click)="EditId(0)"  mat-raised-button color="primary" data-toggle="modal" data-target="#myModal">Thêm mới</button>
+                <button (click)="reset()" mat-raised-button color="primary">Reset</button>
                 <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">Tìm</button> -->
                 <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 15px;box-shadow: 3px 5px 1px 0px #222525;font-size:14px;background-color: white;">Thêm mới</button> -->
             </div>
         </div>
-        <div style="margin-left: 145px;margin-top: 20px; color: red;" *ngIf="check==false"><p>không tìm thấy kết quả</p></div>
+        <!-- <div style="margin-left: 145px;margin-top: 20px; color: red;" *ngIf="check==false">
+            <p>không tìm thấy kết quả</p>
+        </div> -->
+        <div style="margin-left: 145px;margin-top: 20px; color: red;" *ngIf="checkdate==false">
+            <p>ngày bắt đầu không hợp lệ</p>
+        </div>
+        <div style="margin-left: 145px;margin-top: 20px; color: red;" *ngIf="checkDateEnd==false">
+            <p>ngày kết thúc không hợp lệ</p>
+        </div>
+        <div style="margin-left: 145px;margin-top: 20px; color: red;" *ngIf="yearBool==false">
+            <p>khoảng thời gian không hợp lệ</p>
+        </div>
     </mat-card>
-    
+
     <mat-card class="table-b">
         <table>
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Họ tên</th>
-                <th>Ngày sinh</th>
-                <th>Giới Tính</th>
-                <th>Điện thoại</th>
-                <th>Email</th>
-                <th>Thiết lập</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr
-                *ngFor="let a of listUser | paginate: { itemsPerPage: 5, currentPage: p,totalItems:listUser.length };index as i">
-                <td>{{a.id}}</td>
-                <td>{{a.name}}</td>
-                <td>{{formatDate(a.dob)}}</td>
-                <td>{{format(a.gt)}}</td>
-                <td>{{a.phoneNumber}}</td>
-                <td>{{a.email}}</td>
-                <td>
-                    <div class="setting">
-                        <button (click)="EditId(a.id)" style="margin-right: 25px;" mat-raised-button>Sửa</button>
-                        <button (click)="deleteUser(a.id)" style="margin-right: 25px;" mat-raised-button>Xóa</button>
-                        <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">sửa</button>
+                <tr>
+                    <th>STT</th>
+                    <th>Họ tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Giới Tính</th>
+                    <th>Điện thoại</th>
+                    <th>Email</th>
+                    <th>Thiết lập</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    *ngFor="let a of listUser | paginate: {itemsPerPage: obj.PageSize, currentPage: obj.PageIndex,totalItems:obj.totalRows };index as i">
+                    <td>{{ obj.PageSize * (obj.PageIndex - 1) + i+1 }}</td>
+                    <td>{{a.name}}</td>
+                    <td>{{a.dob|date: 'dd/MM/yyyy'}}</td>
+                    <td>{{fm(a.sex)}}</td>
+                    <td>{{a.phoneNumber}}</td>
+                    <td>{{a.email}}</td>
+                    <td>
+                        <div class="setting">
+                            <button (click)="EditId(a.id)" data-toggle="modal" data-target="#myModal" style="margin-right: 25px;background: #ffd740;"
+                                mat-raised-button>Sửa <mat-icon>build</mat-icon></button>
+                            <button (click)="deleteUser(a.id)" style="margin-right: 25px;" mat-raised-button
+                                color="warn">Xóa <mat-icon>delete</mat-icon></button>
+                            <!-- <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">sửa</button>
                     <button style="border-radius:2px;border:1px black solid;border-radius:3px;padding: 2px 35px;box-shadow: 3px 5px 1px 0px #1f1b1b;margin-right: 25px;font-size: 14px;background-color: white;">xóa</button> -->
-                    </div>
-                </td>
-            </tr>
-        </tbody>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
-        <div style="margin-top: 150px; color: red;" *ngIf="check==false"><p style="text-align: center;">không tìm thấy kết quả</p></div>
+        <div style="margin-top: 150px; color: red;" *ngIf="check==false">
+            <p style="text-align: center;">không tìm thấy kết quả</p>
+        </div>
     </mat-card>
     <div>
-        <pagination-controls nextLabel previousLabel screenReaderPageLabel="page" (pageChange)="p = $event">
+        <pagination-controls nextLabel previousLabel screenReaderPageLabel="page" (pageChange)="onPadingChange($event)">
         </pagination-controls>
+    </div>
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Open modal
+    </button> -->
+    <!-- The Modal -->
+    <div class="modal" id="myModal"  >
+        <div class="modal-dialog" style="min-width: 550px;">
+            <div class="modal-content" style="min-width: 550px;min-height: 550px;">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">                   
+                    <app-modal [objedit]="objedit" [id]="id" (getData)="getUsers()"></app-modal>
+                </div>
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div> -->
+
+            </div>
+        </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-page-not-found-component',
   templateUrl: './page-not-found-component.component.html',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _location: Location) { }
 
   ngOnInit(): void {
   }
-
+  goBack(){
+    this._location.back();
+  }
 }

@@ -4,27 +4,35 @@ export class ListById {
     dob!: Date;
     phoneNumber!: string;
     email!: string;
-    gt!: number
+    sex!: number;
+    dateCreated!:Date;
+    lastUpdate!:Date;
+    status:any=0;
 }
 export class CreateUserModel {
     id: number=0;
     name!: string;
-    dob!: Date;
+    dob!: any;
     phoneNumber!: string;
-    email!: string;
-    gt!: number;
+    email!: any;
+    sex!: any;
     userName: string='name';
     passwordHash!: string;
     passwordagain!: string;
+    dateCreated=new Date();
+    lastUpdate= new Date();
+    status:any=0;
 }
 export class LoginModel{
-    email!:string;
+    userName!:string;
     password!:string;
 }
 export class Filter{
     Keywork?:string='';
-    Count?:any='';
-    PageSize!:number;
+    Count?:any=null;
+    PageSize:number=5;
     PageIndex!:number;
-    Dob?:any='';
+    StartDob?:any=null;
+    EndDob?:any=null;
+    totalRows!:number;
 }

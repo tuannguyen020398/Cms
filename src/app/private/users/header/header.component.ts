@@ -12,7 +12,6 @@ export class HeaderComponent implements OnInit {
   constructor(private route:Router) { }
 
   ngOnInit(): void {
-
   }
   logout(){
     if(this.token!=null)

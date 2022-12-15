@@ -11,9 +11,9 @@ export class MainComponent implements OnInit {
   constructor(private route:Router) { }
 
   ngOnInit(): void {
-    if(this.token==null){
-      this.route.navigate(['login'])
-    }
+    // if(this.token==null){
+    //   this.route.navigate(['login'])
+    // }
   }
 
 }

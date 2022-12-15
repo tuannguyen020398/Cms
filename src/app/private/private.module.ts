@@ -16,6 +16,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatTableModule} from '@angular/material/table'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from './users/modal/modal.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HeaderComponent,
     BodyComponent,
     CreateUsersComponent,
-    EditUsersComponent
+    EditUsersComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatCardModule,
     MatTableModule,
     NgxPaginationModule,
-    NgbModule
-  ]
+    NgbModule,
+  ],
 })
 export class PrivateModule { }

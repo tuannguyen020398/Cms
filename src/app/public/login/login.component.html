@@ -1,34 +1,51 @@
-<div class="layout">
-    <mat-card style="max-width: 450px;min-height: 250px;">
-        <div>
-            <p style="margin-bottom: 50px;" class="title">Login</p>
-            <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm.value)" class="example-form">
-                <mat-form-field appearance="fill" class="forms">
-                    <mat-label>Tài khoản</mat-label>
-                    <input [(ngModel)]="loginmodel.email" name="email" #email="ngModel" required matInput>
-                </mat-form-field>
-                <div class="text-danger"
-                    *ngIf="(email.touched||loginForm.submitted) && email.errors?.required">
-                    <p>bạn chưa nhập tên</p>
+<!-- <div class="layout"> -->
+<div *ngIf="loader==false"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+<div class="limiter">
+    <div class="container-login100">       
+            <mat-card style="max-width: 450px;min-height: 250px;border-radius: 10px;height: 460px;">
+                <div>
+                    <p style="margin-bottom: 50px;" class="title">Đăng nhập</p>
+                    <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm.value)" class="example-form">
+                        <mat-form-field appearance="fill" class="forms">
+                            <mat-label>Tài khoản</mat-label>
+                            <input [(ngModel)]="loginmodel.userName" name="userName" #userName="ngModel" required matInput>
+                        </mat-form-field>
+                        <div class="text-danger"
+                            *ngIf="(userName.touched||loginForm.submitted) && userName.errors?.required">
+                            <p>Bạn chưa nhập tên</p>
+                        </div>
+                        <mat-form-field appearance="fill" class="forms">
+                            <mat-label>Mật khẩu</mat-label>
+                            <input [(ngModel)]="loginmodel.password" name="password" #password="ngModel" required matInput
+                                [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <div class="text-danger"
+                            *ngIf="(password.touched||loginForm.submitted) && password.errors?.required">
+                            <p>Bạn chưa nhập mật khẩu</p>
+                        </div>
+                        <div class="text-danger" *ngIf="checkLogin==true">
+                            <p>{{textMessenger}}</p>
+                        </div>
+                        <div class="footer"> 
+                            <div class="container-login100-form-btn">
+                                <div class="wrap-login100-form-btn">
+                                    <div class="login100-form-bgbtn"></div>
+                                    <button class="login100-form-btn">
+                                        Đăng nhập
+                                    </button>
+                                </div>
+                            </div> 
+                                <!-- <button class="button" mat-raised-button color="primary">Đăng nhập</button>               -->
+                        </div>
+                    </form>
                 </div>
-                <mat-form-field appearance="fill" class="forms">
-                    <mat-label>Mật khẩu</mat-label>
-                    <input [(ngModel)]="loginmodel.password" name="password" #password="ngModel" required matInput
-                        [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-                </mat-form-field>
-                <div class="text-danger"
-                    *ngIf="(password.touched||loginForm.submitted) && password.errors?.required">
-                    <p>bạn chưa nhập mật khẩu</p>
-                </div>
-                <div class="footer">
-                        <button class="button" mat-raised-button color="primary">Đăng nhập</button>
-                        <button class="button" mat-raised-button color="primary">Đăng kí</button>                 
-                </div>
-            </form>
+            </mat-card>
         </div>
-    </mat-card>
+   
 </div>
+
+<!-- </div> -->

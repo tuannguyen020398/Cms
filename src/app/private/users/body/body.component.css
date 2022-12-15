@@ -9,15 +9,36 @@ tr,
 th {
   border: 1px solid black;
 } */
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Medium;
+  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+}
+
+@font-face {
+  font-family: Poppins-SemiBold;
+  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
+}
 table,
 tr,
 th {
   text-align: center;
+  border: 1px solid;
 }
 
 th,
 td {
   padding: 10px;
+  border: 1px solid;
 }
 
 .setting {
@@ -27,13 +48,13 @@ td {
 
 .table-b {
   padding: 20px;
-
   max-width: 95%;
   margin: 40px auto;
 }
 
 .table-b table {
   width: 100%;
+  border-collapse: collapse;
 }
 .example-card{
   max-width: 50%;
@@ -41,4 +62,14 @@ td {
 }
 .setting{
   justify-content: center;
+}
+
+@media only screen and (max-width : 480px) {
+  .example-card{
+    margin: 20px;
+    max-width: 100%;
+  }
+  .table-b {
+    margin: 40px 20px auto;
+  }
 }

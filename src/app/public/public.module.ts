@@ -12,6 +12,7 @@ import {MatCardModule} from '@angular/material/card'
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     LoginComponent
@@ -27,6 +28,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     FlexLayoutModule,
     MatCardModule
-  ]
+  ],
+  //providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })
 export class PublicModule { }

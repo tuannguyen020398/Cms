@@ -1,0 +1,230 @@
+<div style="width:100%;margin: 0px auto;">
+    <div>
+        <div class="layout">
+            <mat-card class="example-card">
+                <div>
+                    <p *ngIf="id==0" style="margin-bottom: 50px;" class="title">Thêm mới</p>
+                    <p *ngIf="id>0" style="margin-bottom: 50px;" class="title">Cập nhật thông tin</p>
+                    <div class="alert alert-danger" role="alert" *ngIf="errorsMessageRequest!=null">
+                        {{errorsMessageRequest}}
+                    </div>
+                    <div class="alert alert-success" role="alert" *ngIf="successMessageRequest!=null">
+                        {{successMessageRequest}}
+                    </div>
+                    <!-- form thêm mới -->
+                    <form *ngIf="id==0" #createForm="ngForm" (ngSubmit)="createForm.form.valid && createUser()" class="example-form">
+                        <!-- <input [(ngModel)]="object.id" style="display: none;"  type="number"/> -->
+                        <div class="form-group form-body">
+                            <p class="styletitle">Họ tên <span class="textColor">*</span></p>
+                            <input [(ngModel)]="object.name" name="name" #name="ngModel" type="text"
+                                placeholder="Họ tên" class="form-control" required minlength="6" />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(name.touched||createForm.submitted) && name.errors?.required">
+                            <p>bạn chưa nhập tên</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(name.touched||createForm.submitted) && name.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Ngày sinh <span class="textColor">*</span></p>
+                            <input (change)="functionDob()" [(ngModel)]="object.dob" name="dob" #dob="ngModel"
+                                type="date" placeholder="Ngày sinh" class="form-control" required />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(dob.touched||createForm.submitted) && dob.errors?.required">
+                            <p>bạn chưa nhập ngày sinh</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="ages<18 && ages>0">
+                            <p>chưa đủ 18 tuổi</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="ages<0">
+                            <p>ngày sinh không đúng</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="ages>100">
+                            <p>ngày sinh không vượt quá 100 tuổi</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="checkerror==false">
+                            <p>{{errorsMessageDob}}</p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Giới tính <span class="textColor">*</span></p>
+                            <select class="form-control" [(ngModel)]="object.sex" name="sex" #sex="ngModel">
+                                <option [ngValue]="0">Nam</option>
+                                <option [ngValue]="1">Nữ</option>
+                                <option [ngValue]="2">Khác</option>
+                            </select>
+                            <!-- <input [(ngModel)]="object.gt" name="gt" type="number" placeholder="Giới tính" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/> -->
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(sex.touched||createForm.submitted) && sex.errors?.required">
+                            <p>bạn chưa chọn giới tính </p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Điện thoại <span class="textColor">*</span></p>
+                            <input (change)="formatPhone(object.phoneNumber)" [(ngModel)]="object.phoneNumber"
+                                name="phoneNumber" #phoneNumber="ngModel" type="text" placeholder="Điện thoại"
+                                class="form-control" required pattern="^((\84)|0)[(3|5|7|8|9)](\d{2}){4}$" />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(phoneNumber.touched||createForm.submitted) && phoneNumber.errors?.required">
+                            <p>bạn chưa nhập số điện thoại</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(phoneNumber.touched||createForm.submitted) && phoneNumber.errors?.pattern">
+                            <p>bạn nhập số điện thoại chưa đúng</p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Email</p>
+                            <input [(ngModel)]="object.email" name="email" #email="ngModel" type="text"
+                                placeholder="Email" class="form-control"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+                        </div>
+                        <!-- <div class="text-danger textvalidate" *ngIf="(email.touched||createForm.submitted) && email.errors?.required">
+                            <p>bạn chưa nhập email</p>
+                        </div> -->
+                        <div class="text-danger textvalidate"
+                            *ngIf="(email.touched||createForm.submitted) && email.errors?.pattern">
+                            <p>bạn nhập email chưa đúng</p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Mật khẩu <span class="textColor">*</span></p>
+                            <input [(ngModel)]="object.passwordHash" name="passwordHash" #passwordHash="ngModel"
+                                type="password" placeholder="Mật khẩu" class="form-control" required minlength="6" />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(passwordHash.touched||createForm.submitted) && passwordHash.errors?.required">
+                            <p>bạn chưa nhập mật khẩu</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(passwordHash.touched||createForm.submitted) && passwordHash.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Nhập lại mật khẩu <span class="textColor">*</span></p>
+                            <input [(ngModel)]="object.passwordagain" name="passwordagain" #passwordagain="ngModel"
+                                type="password" placeholder="Nhập lại mật khẩu" class="form-control" required
+                                minlength="6" />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(passwordagain.touched||createForm.submitted) && passwordagain.errors?.required">
+                            <p>bạn chưa nhập lại mật khẩu</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(passwordagain.touched||createForm.submitted) && object.passwordagain!==object.passwordHash">
+                            <p>mật khẩu không giống nhau</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(passwordagain.touched||createForm.submitted) && passwordagain.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <div class="footer">
+                            <button class="button" style="margin-right: 20px;" mat-raised-button color="primary">Thêm
+                                mới</button>
+                            <!-- <button (click)="createUser()" class="button" style="margin-right: 30px;" mat-raised-button color="primary">Thêm mới</button> -->
+                            <!-- <a style="text-decoration: none;" (click)="goBack()" mat-raised-button color="primary">Về trang quản trị</a>  -->
+                            <a style="text-decoration: none;margin-right: 60px;" type="button"
+                                class="btn btn-danger" #closebutton data-dismiss="modal">Đóng</a>
+                        </div>
+                    </form>
+                    <!-- form chỉnh sửa-->
+                    <form *ngIf="id>0" #editForm="ngForm" (ngSubmit)="editForm.form.valid && editUser(editForm.value)"
+                        class="example-form">
+                        <!-- <input [(ngModel)]="userByid.id" style="display: none;"  type="number"/> -->
+                        <div class="form-group form-body">
+                            <p class="styletitle">Họ tên <span class="textColor">*</span></p>
+                            <input [(ngModel)]="userByid.name" name="name" #name="ngModel" type="text"
+                                placeholder="Họ tên" class="form-control" required minlength="6" />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(name.touched||editForm.submitted) && name.errors?.required">
+                            <p>bạn chưa nhập tên</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(name.touched||editForm.submitted) && name.errors?.minlength">
+                            <p>độ dài lớn hơn 6 kí tự</p>
+                        </div>
+                        <!-- <div *ngIf="submitted && ValidateForm.controls.name.errors" class="text-danger textvalidate">
+                            <div *ngIf="submitted && ValidateForm.controls.name.errors.required">
+                                <p>bạn chưa nhập tên</p>
+                            </div>
+                            <div *ngIf="submitted && ValidateForm.controls.name.errors.minlength">
+                                <p>độ dài lớn hơn 6 kí tự</p>
+                            </div>
+                        </div> -->
+                        <div class="form-group form-body">
+                            <p class="styletitle">Ngày sinh <span class="textColor">*</span></p>
+                            <input (change)="functionDob()" [ngModel]="userByid.dob|date:'yyyy-MM-dd'"
+                                (ngModelChange)="userByid.dob=$event" name="dob" #dob="ngModel" type="date"
+                                placeholder="Ngày sinh" class="form-control" required />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(dob.touched||editForm.submitted) && dob.errors?.required">
+                            <p>bạn chưa nhập ngày sinh</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="ages<18 && ages>0">
+                            <p>chưa đủ 18 tuổi</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="ages<0">
+                            <p>ngày sinh không đúng</p>
+                        </div>
+                        <div class="text-danger textvalidate" *ngIf="ages>100">
+                            <p>ngày sinh không vượt quá 100 tuổi</p>
+                        </div>
+                        <ng-template #content class="text-danger textvalidate">ngày sinh không hợp lệ</ng-template>
+                        <div class="text-danger textvalidate" *ngIf="checkerror==false">
+                            <p>{{errorsMessageDob}}</p>
+                        </div>
+                        <div class="form-group form-body">
+                            <p class="styletitle">Giới tính <span class="textColor">*</span></p>
+                            <select class="form-control" [(ngModel)]="userByid.sex" name="sex" #sex="ngModel">
+                                <option [ngValue]="0">Nam</option>
+                                <option [ngValue]="1">Nữ</option>
+                                <option [ngValue]="2">Khác</option>
+                            </select>
+                            <!-- <input [(ngModel)]="object.gt" name="gt" type="number" placeholder="Giới tính" style="border: 0.5px #0000002e solid;border-radius:5px;width:380px;height: 35px;"/> -->
+                        </div>
+                        <!-- <div class="text-danger textvalidate" *ngIf="(gt.touched||editForm.submitted) && gt.errors?.required">
+                            <p>bạn chưa chọn giới tính </p>
+                        </div> -->
+                        <div class="form-group form-body">
+                            <p class="styletitle">Điện thoại <span class="textColor">*</span></p>
+                            <input (change)="formatPhone(userByid.phoneNumber)" [(ngModel)]="userByid.phoneNumber"
+                                name="phoneNumber" #phoneNumber="ngModel" type="text" placeholder="Điện thoại"
+                                class="form-control" pattern="^((\84)|0)[(3|5|7|8|9)](\d{2}){4}$" required />
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(phoneNumber.touched||editForm.submitted) && phoneNumber.errors?.required">
+                            <p>bạn chưa nhập số điện thoại</p>
+                        </div>
+                        <div class="text-danger textvalidate"
+                            *ngIf="(phoneNumber.touched||editForm.submitted) && phoneNumber.errors?.pattern">
+                            <p>bạn nhập số điện thoại chưa đúng</p>
+                        </div>
+
+                        <div class="form-group form-body">
+                            <p class="styletitle">Email</p>
+                            <input [(ngModel)]="userByid.email" name="email" #email="ngModel" type="text"
+                                placeholder="Email" class="form-control"
+                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+                        </div>
+                        <!-- <div class="text-danger textvalidate" *ngIf="(email.touched||editForm.submitted) && email.errors?.required">
+                            <p>bạn chưa nhập email</p>
+                        </div> -->
+                        <div class="text-danger textvalidate"
+                            *ngIf="(email.touched||editForm.submitted) && email.errors?.pattern">
+                            <p>bạn nhập email chưa đúng</p>
+                        </div>
+                        <div class="footer">
+                            <button class="button" style="margin-right: 30px;" mat-raised-button color="primary">Cập
+                                nhật</button>
+                            <a style="text-decoration: none;margin-right: 60px;" type="button"
+                                class="btn btn-danger" #closebutton data-dismiss="modal">Đóng</a>
+                        </div>
+                    </form>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
